@@ -7,6 +7,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { HospitalCard } from "./HospitalCard";
 import { HospitalCardSkeleton } from "./HospitalCardSkeleton";
+import { HospitalChips } from "./HospitalChips";
 
 const skeletonArray = Array.from({ length: 3 }, (_, i) => i);
 
@@ -14,6 +15,8 @@ export const Hospitals: FC = () => {
 
   const { data: hospitals, isLoading: isLoadingHospitals } = useHospitals();
   const { top, bottom } = useSafeAreaInsets();
+
+  const [ selectedChip, setSelectedChip ] = React.useState<"Card" | "List">("Card");
 
   return (
     <SafeAreaView style={StyleSheet.flatten([
@@ -40,6 +43,7 @@ export const Hospitals: FC = () => {
       </LinearGradient>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ height: 56 }} />
+        <HospitalChips />
         {
           isLoadingHospitals && skeletonArray.map((_, i) => (
             <HospitalCardSkeleton key={"Hospital_Skeleton_Card_" + i} />
